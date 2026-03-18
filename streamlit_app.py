@@ -1,70 +1,35 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
 
-st.set_page_config(page_title="Streamlit Elements Demo", layout="wide")
+st.set_page_config(page_title="자기소개 페이지", layout="centered")
 
-st.title("🎨 Streamlit 기본 요소 데모")
-st.markdown("Streamlit에서 지원하는 주요 UI 요소를 한 곳에서 확인할 수 있는 예제 페이지입니다.")
+st.title("👋 안녕하세요! 자기소개 페이지입니다")
 
-st.header("1. 텍스트 & 마크다운")
-st.write("일반 텍스트")
-st.markdown("**강조된 텍스트**와 _기울임_ 및 [링크](https://streamlit.io)")
-st.code("print('Hello Streamlit')", language='python')
+st.subheader("기본 정보")
+st.write("- 이름: 홍길동")
+st.write("- 직업: 데이터 분석가")
+st.write("- 이메일: honggildong@example.com")
 
-st.header("2. 데이터 표현")
+st.subheader("소개")
+st.markdown("안녕하세요! 저는 **데이터 분석과 머신러닝**을 사랑하는 개발자입니다.\n\n여러 프로젝트에서 시각화, 리스트릭트, 예측 모델을 구축해왔습니다.")
 
-df = pd.DataFrame({
-    "이름": ["철수", "영희", "민수", "지영"],
-    "나이": [25, 30, 22, 28],
-    "점수": [88, 92, 75, 85],
-})
-st.dataframe(df)
-st.table(df)
+st.subheader("주요 기술")
+st.write("- Python (Pandas, NumPy, Scikit-learn)")
+st.write("- Streamlit, Dash")
+st.write("- SQL, AWS")
 
-st.subheader("3. 차트")
-chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
-st.line_chart(chart_data)
-st.bar_chart(chart_data)
+st.subheader("관심사")
+with st.expander("클릭해서 열기"):
+    st.write("데이터 시각화, AI 도구 개발, 생산성 향상 자동화")
 
-st.subheader("4. 위젯")
-name = st.text_input("이름 입력")
-age = st.number_input("나이", min_value=0, max_value=120, value=20)
-color = st.selectbox("선호 색상", ["빨강", "초록", "파랑"])
-agree = st.checkbox("동의합니다")
-option = st.radio("옵션 선택", ["옵션 A", "옵션 B", "옵션 C"])
+st.subheader("간단한 인터랙션")
+name = st.text_input("이름을 입력하세요", "홍길동")
+message = st.text_area("자기소개 한 줄", "Streamlit으로 만든 간단한 웹 앱에 오신 것을 환영합니다!")
 
-if st.button("전송"):
-    st.success(f"{name}님, 선택된 값: 나이={age}, 색상={color}, 동의={agree}, 옵션={option}")
+if st.button("제출"):
+    st.success(f"{name}님의 자기소개: {message}")
 
-st.subheader("5. 레이아웃")
-col1, col2, col3 = st.columns(3)
-with col1:
-    st.metric("온도", "20°C", "-1°C")
-with col2:
-    st.metric("습도", "60%", "+2%")
-with col3:
-    st.metric("속도", "15km/h", "+3km/h")
+st.sidebar.header("프로필 요약")
+st.sidebar.write("- 5년 경력 데이터 분석가")
+st.sidebar.write("- 관심 기술: 머신러닝 / 데이터 시각화")
+st.sidebar.write("- 개인 프로젝트: 추천 시스템, 자연어 처리")
 
-with st.expander("숨김 영역(Expander)"):
-    st.write("이 공간은 접을 수 있는 영역입니다.")
-
-st.subheader("6. 진척도 및 상태")
-progress = st.progress(0)
-status_text = st.empty()
-for i in range(101):
-    progress.progress(i)
-    status_text.text(f"진행률: {i}%")
-
-st.header("7. 탭")
-with st.tabs(["Tab 1", "Tab 2", "Tab 3"])[0]:
-    st.write("첫번째 탭 내용")
-with st.tabs(["Tab 1", "Tab 2", "Tab 3"])[1]:
-    st.write("두번째 탭 내용")
-with st.tabs(["Tab 1", "Tab 2", "Tab 3"])[2]:
-    st.write("세번째 탭 내용")
-
-st.sidebar.title("사이드바")
-st.sidebar.write("사이드바에 추가 정보나 필터를 넣을 수 있습니다.")
-sidebar_slider = st.sidebar.slider("사이드바 슬라이더", 0, 100, 50)
-st.sidebar.write(f"선택된 값: {sidebar_slider}")
